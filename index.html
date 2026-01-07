@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>X-MARTER</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:linear-gradient(135deg,#020024,#0b3c5d,#020024);color:#fff;overflow-x:hidden;}
+
+/* MENU */
+.menu-btn{position:fixed;top:20px;right:20px;font-size:30px;cursor:pointer;z-index:1000;}
+.menu{position:fixed;top:0;right:-100%;width:260px;height:100vh;
+background:linear-gradient(135deg,#020024,#001f3f,#003366,#0b3c5d);
+animation:menuBgAnim 6s linear infinite;transition:.4s;z-index:999;padding:30px;}
+@keyframes menuBgAnim{
+0%{background:linear-gradient(135deg,#020024,#001f3f,#003366,#0b3c5d);}
+50%{background:linear-gradient(135deg,#0b3c5d,#003366,#001f3f,#020024);}
+100%{background:linear-gradient(135deg,#020024,#001f3f,#003366,#0b3c5d);}
+}
+.menu.active{right:0;}
+.menu .back{font-size:28px;cursor:pointer;margin-bottom:30px;}
+.menu a{display:block;color:#fff;text-decoration:none;margin:15px 0;font-size:18px;position:relative;padding-left:10px;}
+.menu a::before{content:"";position:absolute;left:0;top:0;width:5px;height:100%;
+background:linear-gradient(90deg,#ff00ff,#00ffff,#ffcc00);}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;}
+.profile{width:170px;height:170px;border-radius:50%;position:relative;margin-bottom:20px;}
+.profile img{width:100%;height:100%;border-radius:50%;object-fit:cover;position:relative;z-index:2;}
+.profile::before{content:"";position:absolute;inset:-6px;border-radius:50%;
+background:conic-gradient(#00ffff,#0066ff,#ff00ff,#00ffff);animation:spin 4s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.hero h1{font-size:34px;font-weight:700;
+background:linear-gradient(90deg,#00ffff,#ff00ff,#ffe066,#00ffff);
+background-size:300% 300%;
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+animation:nameFlow 6s linear infinite;}
+@keyframes nameFlow{0%{background-position:0%}100%{background-position:100%}}
+
+.hero p{margin-top:15px;max-width:520px;font-size:15px;
+background:linear-gradient(90deg,#ffe066,#7CFF00);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+/* TOP BUTTONS */
+.btns{margin-top:28px;display:flex;gap:18px;flex-wrap:wrap;justify-content:center;}
+.btn{position:relative;padding:12px 28px;border-radius:8px;background:transparent;color:#fff;font-weight:600;overflow:hidden;border:none;cursor:pointer;}
+.btn::before{content:"";position:absolute;left:-100%;top:0;width:100%;height:100%;
+background:linear-gradient(90deg,transparent,var(--clr),transparent);animation:sideRun 2.5s linear infinite;}
+@keyframes sideRun{to{left:100%}}
+.btn.demo{--clr:#00ffff;}
+.btn.touch{--clr:#ff00ff;}
+
+/* ABOUT + TOOLS */
+.about,.tools{padding:60px 20px;max-width:1100px;margin:auto;}
+.about h2,.tools h2{color:#3fa9ff;margin-bottom:20px;}
+
+.items{display:flex;flex-direction:column;gap:14px;}
+.items span{position:relative;display:inline-block;padding:12px 20px;font-weight:600;overflow:hidden;}
+.items span::before{content:"";position:absolute;left:-100%;top:0;width:100%;height:100%;
+background:linear-gradient(90deg,transparent,var(--acol),transparent);animation:sideRun 3s linear infinite;}
+.items span:nth-child(1){--acol:#00ffff;}
+.items span:nth-child(2){--acol:#ff00ff;}
+.items span:nth-child(3){--acol:#ffe066;}
+.items span:nth-child(4){--acol:#7CFF00;}
+
+.bio-box{margin-top:25px;padding:20px;border-radius:12px;border:2px solid #00ffff;}
+
+/* PHOTOS */
+.photos{padding:60px 20px;max-width:900px;margin:auto;}
+.photo-box{margin:30px auto;width:85%;border-radius:18px;overflow:hidden;}
+.photo-overlay{position:relative;cursor:pointer;}
+.photo-overlay img{width:100%;height:360px;object-fit:cover;filter:brightness(0.5);transition:.4s;}
+.photo-overlay:hover img{filter:brightness(0.6);}
+.overlay-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+font-size:22px;font-weight:700;text-shadow:2px 2px 5px #000;}
+
+/* TOOLS BUTTONS */
+.tools-buttons{display:flex;flex-direction:column;gap:18px;align-items:flex-start;}
+.tool-btn{
+  position:relative;
+  padding:14px 26px;
+  background:#00000040;
+  font-weight:600;
+  border-radius:10px;
+  text-decoration:none;
+  display:inline-block;
+  overflow:hidden;
+}
+.tool-btn span{position:relative;z-index:2;color:var(--clr);}
+.tool-btn::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:conic-gradient(#ff00ff,#00ffff,#ffe066,#7CFF00,#ff00ff);
+  animation:rotateBorder 4s linear infinite;
+  border-radius:12px;
+}
+.tool-btn::after{
+  content:"";
+  position:absolute;
+  inset:2px;
+  background:#000;
+  border-radius:8px;
+  z-index:1;
+}
+@keyframes rotateBorder{to{transform:rotate(360deg);}}
+
+/* CONTACT */
+.contact{text-align:center;padding:90px 20px 60px;}
+.contact-btn{position:relative;display:inline-block;padding:18px 36px;font-weight:700;
+font-size:18px;text-decoration:none;color:#000;border-radius:30px;
+background:linear-gradient(90deg,#ff00ff,#00ffff,#ffe066,#ff00ff);}
+</style>
+</head>
+
+<body>
+
+<div class="menu-btn" onclick="openMenu()">☰</div>
+<div class="menu" id="menu">
+  <div class="back" onclick="closeMenu()">←</div>
+  <a href="#">Home</a>
+  <a href="#about">About</a>
+  <a href="#tools">Tools</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<section class="hero">
+  <div class="profile"><img src="Fahad.jpg"></div>
+  <h1>X-MARTER</h1>
+  <p>TECHNICAL EXPERT • SCRIPT MAKER • BOT MAKER • CYBER SPECIALIST</p>
+  <div class="btns">
+    <button class="btn demo" onclick="photos.scrollIntoView({behavior:'smooth'})">View Demo</button>
+    <button class="btn touch" onclick="contact.scrollIntoView({behavior:'smooth'})">Get In Touch</button>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <h2>About</h2>
+  <div class="items">
+    <span>TECHNICAL EXPERT</span>
+    <span>SCRIPT MAKER</span>
+    <span>BOT MAKER</span>
+    <span>CYBER SPECIALIST</span>
+  </div>
+  <div class="bio-box">Professional developer providing scripts, automation bots and secure technical solutions.</div>
+</section>
+
+<section class="photos" id="photos">
+  <div class="photo-box">
+    <div class="photo-overlay">
+      <img src="https://picsum.photos/900/600">
+      <div class="overlay-text">See Demo</div>
+    </div>
+  </div>
+</section>
+
+<section class="tools" id="tools">
+  <h2>TOOLS</h2>
+  <div class="tools-buttons">
+    <a href="https://www.mediafire.com/file/c50dfk1qwqq6gqv/Devile-X_Toolkit_6.20.apk/file" target="_blank" class="tool-btn">
+      <span style="--clr:#00dfff;">MY TOOLKIT</span>
+    </a>
+
+    <a href="https://t.me/Shgssubot" target="_blank" class="tool-btn">
+      <span style="--clr:#00ff3c;">TELEGRAM BOT</span>
+    </a>
+
+    <a href="https://youtube.com/@sindhiplayz110?si=TPFlUuf2vHVf0301" target="_blank" class="tool-btn">
+      <span style="--clr:#ffe066;">YOUTUBE</span>
+    </a>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <a href="https://wa.me/923182910414" class="contact-btn">Contact</a>
+</section>
+
+<script>
+const menu=document.getElementById('menu');
+function openMenu(){menu.classList.add('active')}
+function closeMenu(){menu.classList.remove('active')}
+</script>
+
+</body>
+</html>
